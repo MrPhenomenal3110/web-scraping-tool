@@ -28,7 +28,7 @@ class flipkartSearch():
 
     def getHTML(self):
         response = self.makeRequest()["resp"]
-        soup = BeautifulSoup(response, 'lxml')
+        soup = BeautifulSoup(response, 'html.parser')
 
         return soup
     
@@ -37,16 +37,23 @@ class flipkartSearch():
             tags[i] = tags[i].string
 
         return tags
+    
+    def getBrand(self):
+        brands = self.getHTML().select('div[class="_2WkVRV"]')
+        return self.toString(brands)
 
     def getNames(self):
-        names = self.getHTML().findAll('div',{'class':'s1Q9rs'})
-
-        return (names) 
+        names = self.getHTML().findAll('div',{'class':'_4rR01T'})
+        if(len(names) == 0):
+            names = self.getHTML().select('a.IRpwTa')
+        if(len(names) == 0):
+            names = self.getHTML().select('a.s1Q9rs')
+        return self.toString(names) 
     
     def getPrices(self):
-        prices = self.getHTML().findAll('div',{'class':'_30jeq3'})
+        prices = self.getHTML().select('div._30jeq3')
 
-        return (prices)
+        return self.toString(prices)
     
 
 
