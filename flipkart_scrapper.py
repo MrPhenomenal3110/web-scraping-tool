@@ -1,9 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-
-url = "https://www.flipkart.com/search?q=samsung&marketplace=FLIPKART"
-
 class flipkartSearch():
 
     def __init__(self, productName,header):
@@ -22,9 +19,6 @@ class flipkartSearch():
         response = {"status-code" : statusCode, "resp" : data}
 
         return response
-    
-    def getStatusCode(self):
-        return self.makeRequest()["status-code"]
 
     def getHTML(self):
         response = self.makeRequest()["resp"]
@@ -37,10 +31,6 @@ class flipkartSearch():
             tags[i] = tags[i].string
 
         return tags
-    
-    def getBrand(self):
-        brands = self.getHTML().select('div[class="_2WkVRV"]')
-        return self.toString(brands)
 
     def getNames(self):
         names = self.getHTML().findAll('div',{'class':'_4rR01T'})

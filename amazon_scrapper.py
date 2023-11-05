@@ -19,9 +19,6 @@ class amazonSearch():
         response = {"status-code" : statusCode, "resp" : data}
 
         return response
-    
-    def getStatusCode(self):
-        return self.makeRequest()["status-code"]
 
     def getHTML(self):
         response = self.makeRequest()["resp"]
